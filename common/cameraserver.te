@@ -43,3 +43,17 @@ allow cameraserver system_server:unix_stream_socket { read write };
 
 #Allow read access to soc/msm-cam/video4linux/video0/name sysfs
 allow cameraserver sysfs:file r_file_perms;
+
+unix_socket_connect(qtitetherservice_app, netd, netd);
+
+qmux_socket(qtitetherservice_app);
+
+allow qtitetherservice_app qtitetherservice_app_data_file:dir create_dir_perms;
+allow qtitetherservice_app qtitetherservice_app_data_file:{ file lnk_file } create_file_perms;
+
+allow qtitetherservice_app wcnss_service_exec:file rx_file_perms;
+
+# TEMPORARY: Type transitioning via seapp_contexts from system_app isn't working
+#
+allow system_app qtitetherservice_app_data_file:dir create_dir_perms;
+allow system_app qtitetherservice_app_data_file:{ file lnk_file } create_file_perms;
